@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 
 PostList.propTypes = {
   posts: PropTypes.array,
+  pages: PropTypes.object,
 };
 
 PostList.defaultProps = {
   posts: [],
+  pages: {},
 };
 
 function PostList(props) {
