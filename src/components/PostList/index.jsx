@@ -11,7 +11,6 @@ PostList.defaultProps = {
 
 function PostList(props) {
   const { posts } = props;
-  console.log('postList:', posts);
   return (
     <ul>
       {posts.map((post) => (

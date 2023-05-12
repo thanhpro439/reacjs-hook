@@ -42,7 +42,6 @@ function App() {
           'http://js-post-api.herokuapp.com/api/posts?_limit=10&_page=1';
         const response = await fetch(requestUlr);
         const responseJSON = await response.json();
-        console.log('responseJSON', responseJSON);
         const { data } = responseJSON;
         setPostList(data);
       } catch (error) {
