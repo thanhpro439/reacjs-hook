@@ -1,30 +1,34 @@
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import './style.scss';
 
-TodoList.propTypes = {};
+TodoList.propTypes = {
+  mainTodoList: PropTypes.array,
+  onClickTodo: PropTypes.func,
+};
 
-const initTodoList = ['Learn English', 'Learn JS', 'Learn Reacjs'];
+TodoList.defaultProps = {
+  mainTodoList: [],
+  onClickTodo: null,
+};
 
-function TodoList(props) {
-  const [todoList, setTodoList] = useState(initTodoList);
+function TodoList({ mainTodoList, onClickTodo }) {
   const handleClick = (todo, index) => {
-    const newTodoList = [...todoList];
-    newTodoList.splice(index, 1);
-    setTodoList(newTodoList);
+    if (!onClickTodo) return;
+    onClickTodo(todo, index);
   };
 
   return (
     <ul className='todo-list'>
-      {todoList.map((todo, index) => {
+      {mainTodoList.map((todo, index) => {
         return (
           <li
-            key={index}
+            key={todo.id}
             onClick={() => {
               handleClick(todo, index);
             }}
           >
-            {todo}
+            {todo.title}
           </li>
         );
       })}
