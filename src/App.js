@@ -33,16 +33,17 @@ function App() {
     setTodoList(newTodoList);
   };
 
-  const [postList, setPostList] = useState('');
+  const [postList, setPostList] = useState([]);
 
   useEffect(() => {
     async function getPostList() {
       try {
         const requestUlr =
-          'http://js-post-api.herokuapp.com/api/posts?_limit=10&_page=1';
+          'https://js-post-api.herokuapp.com/api/posts?_limit=10&_page=1';
         const response = await fetch(requestUlr);
         const responseJSON = await response.json();
         const { data } = responseJSON;
+        console.log(data);
         setPostList(data);
       } catch (error) {
         console.log('Get data failed.', error.message);
@@ -53,10 +54,11 @@ function App() {
   }, []);
 
   return (
-    <div className='app'>
+    <div className="app">
       <h3>Todo List</h3>
       <TodoForm onSubmit={handleSubmit} />
       <TodoList mainTodoList={todoList} onClickTodo={handleClick} />
+      <h3>List Posts</h3>
       <PostList posts={postList} />
     </div>
   );
