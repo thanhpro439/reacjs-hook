@@ -5,6 +5,8 @@ import PostList from './components/PostList';
 import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
 import { useEffect, useState } from 'react';
+import PostSearch from './components/PostSearch';
+import Clock from './components/Clock';
 
 function App() {
   const mainTodoList = [
@@ -50,7 +52,7 @@ function App() {
     async function getPostList() {
       try {
         const paramString = queryString.stringify(filtered);
-        const requestUlr = `https://js-post-api.herokuapp.com/api/posts?${paramString}`;
+        const requestUlr = `http://js-post-api.herokuapp.com/api/posts?${paramString}`;
         const response = await fetch(requestUlr);
         const responseJSON = await response.json();
         const { data, pagination } = responseJSON;
@@ -71,14 +73,29 @@ function App() {
     });
   };
 
+  const handleOnSubmit = (newFilter) => {
+    setFiltered({
+      ...filtered,
+      _page: 1,
+      title_like: newFilter.searchTerm,
+    });
+  };
+
+  const [showClock, setShowClock] = useState(true);
+
   return (
-    <div className="app">
+    <div className='app'>
       <h3>Todo List</h3>
       <TodoForm onSubmit={handleSubmit} />
       <TodoList mainTodoList={todoList} onClickTodo={handleClick} />
       <h3>List Posts</h3>
+      <PostSearch onSubmit={handleOnSubmit} />
       <PostList posts={postList} />
       <Pagination pagination={pagination} onPageChange={handleOnPageChange} />
+      <h3>Clock</h3>
+      {showClock && <Clock />}
+      <button onClick={() => setShowClock(false)}>Hide Clock</button>
+      <button onClick={() => setShowClock(true)}>Show Clock</button>
     </div>
   );
 }
