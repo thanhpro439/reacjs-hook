@@ -52,7 +52,7 @@ function App() {
     async function getPostList() {
       try {
         const paramString = queryString.stringify(filtered);
-        const requestUlr = `http://js-post-api.herokuapp.com/api/posts?${paramString}`;
+        const requestUlr = `https://js-post-api.herokuapp.com/api/posts?${paramString}`;
         const response = await fetch(requestUlr);
         const responseJSON = await response.json();
         const { data, pagination } = responseJSON;
